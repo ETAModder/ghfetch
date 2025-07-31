@@ -1,0 +1,76 @@
+// ghfetch - a program to show useful specifications about your device.
+// the program has taken inspiration from a program also by the name
+// ghfetch but not outright stolen code from it or anything similar.
+
+// extra vars
+etc = {}
+etc.ver = "v1.2"
+etc.auth = "ETAGamer"
+etc.shell = get_shell
+etc.comp = etc.shell.host_computer
+etc.meta = include_lib("/lib/metaxploit.so")
+etc.apt = include_lib("/lib/aptclient.so")
+
+// spec vars
+sys = {}
+sys.os = "Ellipse"                                                            
+sys.kernel = etc.meta.load("/lib/kernel_module.so").lib_name+"-"+etc.meta.load("/lib/kernel_module.so").version
+sys.aptver = etc.meta.load("/lib/aptclient.so").lib_name+"-"+etc.meta.load("/lib/aptclient.so").version
+sys.metaver = etc.meta.load("/lib/metaxploit.so").lib_name+"-"+etc.meta.load("/lib/metaxploit.so").version
+sys.bios = "H4CK3D BIOS" // bios seen in title screen
+sys.theme = "GHFetch.2"
+sys.time = current_date
+sys.user = active_user
+sys.font = "Source Code Pro" // proven to be the font Terminal.exe uses
+sys.shell = "ellipse" // will be changed to bash once the bash update comes out
+sys.hduse = (slice(str(etc.comp.File("/").size.to_int / 2^20), 0, 6))
+sys.osver = "4.10.0-31-generic"
+sys.de = "EllipseDE" // made up ellipseOS desktop environment
+sys.term = "/usr/bin/Terminal.exe"
+sys.lanip = get_router.local_ip
+sys.pubip = get_router.public_ip
+sys.bssid = get_router.bssid_name
+sys.essid = get_router.essid_name
+sys.cname = etc.comp.get_name
+
+dashformat="-"*(sys.user+"@"+sys.cname).len // creates the dashes to match the length of user@computername
+
+// formatting vars
+clr = {}
+clr.r = "<color=#aa0000>" // red
+clr.g = "<color=#00aa00>" // green
+clr.b = "<color=#0000aa>" // blue
+clr.y = "<color=#aa5500>" // yellow (quite orangy tho)
+clr.p = "<color=#aa00aa>" // purple
+clr.lb = "<color=#00aaaa>" // light blue
+clr.gr = "<color=#aaaaaa>" // grey
+clr.bl = "<color=#000000>" // black
+clr.e = "<color=#5D9EA2>" // i think the color that the ellipse logo is
+clr.cscheme1 = clr.bl+"@@"+clr.r+"@@"+clr.g+"@@"+clr.y+"@@"+clr.b+"@@"+clr.p+"@@"+clr.lb+"@@"+clr.gr+"@@"+"</color>"
+clr.cscheme2 = clr.bl+"@@"+clr.r+"@@"+clr.g+"@@"+clr.y+"@@"+clr.b+"@@"+clr.p+"@@"+clr.lb+"@@"+clr.gr+"@@"+"</color>"
+
+ghfetch = function()
+	// print ellipse logo ascii and system information
+	print("<color=#5D9EA2>                ..                   </color>"+clr.e+"<b>"+sys.user+"</b>"+clr.gr+"@"+clr.e+"<b>"+sys.cname+"</b></color>")
+	print("<color=#5D9EA2>          ----=####+----.            </color>"+clr.gr+"<b>"+dashformat+"</color>")
+	print("<color=#5D9EA2>      .+*#@@@@@@@@@@@@@@#+=:         </color>"+clr.e+"<b>OS</b>"+clr.gr+": "+sys.os+"</color>")
+	print("<color=#5D9EA2>     +%@@@@@@@@@@@@@@@@@@@@%#:       </color>"+clr.e+"<b>Kernel</b>"+clr.gr+": "+sys.kernel+"</color>")
+	print("<color=#5D9EA2>   -%@@@@@@@@@@@-                    </color>"+clr.e+"<b>Time</b>"+clr.gr+": "+sys.time+"</color>")
+	print("<color=#5D9EA2> :%@@@@@@@@@@@#-                     </color>"+clr.e+"<b>Apt</b>"+clr.gr+": "+sys.aptver+"</color>")
+	print("<color=#5D9EA2> -@@@@@@@@@@@@%+.   -:-:-:-:-:-:.    </color>"+clr.e+"<b>MetaX</b>"+clr.gr+": "+sys.metaver+"</color>")
+	print("<color=#5D9EA2>+@@@@@@@@@@@@@%=.  :@@@@@@@@@@@@#-   </color>"+clr.e+"<b>Shell</b>"+clr.gr+": "+sys.term+"</color>")
+	print("<color=#5D9EA2>*@@@@@@@@@@@@@%+   :@@@@@@@@@@@@@@-  </color>"+clr.e+"<b>BIOS</b>"+clr.gr+": "+sys.bios+"</color>")
+	print("<color=#5D9EA2>*@@@@@@@@@@@@@%=.  :@-               </color>"+clr.e+"<b>Theme</b>"+clr.gr+": "+sys.theme+"</color>")
+	print("<color=#5D9EA2>*@@@@@@@@@@@@@%+   :@:               </color>"+clr.e+"<b>Font</b>"+clr.gr+": "+sys.font+"</color>")
+	print("<color=#5D9EA2>*@@@@@@@@@@@@@%=.  :@#*+*+*+*+*+*+.  </color>"+clr.e+"<b>Version</b>"+clr.gr+": "+sys.osver+"</color>")
+	print("<color=#5D9EA2>*@@@@@@@@@@@@@%+   :@@@@@@@@@@@@@%:  </color>"+clr.e+"<b>Drive</b>"+clr.gr+": "+sys.hduse+"</color>")
+	print("<color=#5D9EA2>-#@@@@@@@@@@@@%*.  .*%@@@@@@@@@@+:   </color>"+clr.e+"<b>BSSID</b>"+clr.gr+": "+sys.bssid+"</color>")
+	print("<color=#5D9EA2> -@@@@@@@@@@@@@@-    :----------.    </color>"+clr.e+"<b>ESSID</b>"+clr.gr+": "+sys.essid+"</color>")
+	print("<color=#5D9EA2>  .+@@@@@@@@@@@@#-                   </color>"+clr.e+"<b>PublicIP</b>"+clr.gr+": "+sys.pubip+"</color>")
+	print("<color=#5D9EA2>    :#@@@@@@@@@@@@###********:       </color>"+clr.e+"<b>LanIP</b>"+clr.gr+": "+sys.lanip+"</color>")
+	print("<color=#5D9EA2>     -@@@@@@@@@@@@@@@@@@@@+          </color>")
+	print("<color=#5D9EA2>       -*#%%@@@@@@@@%%#=.            </color>"+"<b>"+clr.cscheme1+"</b>")
+	print("<color=#5D9EA2>             -+****+=                </color>"+"<b>"+clr.cscheme2+"</b>")
+end function
+
+ghfetch()	
