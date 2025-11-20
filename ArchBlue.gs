@@ -1,0 +1,101 @@
+etc = {}
+etc.ver = "v1.3-arch-big"
+etc.auth = "ETAGamer"
+etc.shell = get_shell
+etc.comp = etc.shell.host_computer
+etc.meta = include_lib("/lib/metaxploit.so")
+etc.apt = include_lib("/lib/aptclient.so")
+
+sys = {}
+sys.os = "Arch Linux"
+sys.kernel = etc.meta.load("/lib/kernel_module.so").lib_name + "-" + etc.meta.load("/lib/kernel_module.so").version
+sys.aptver = etc.meta.load("/lib/aptclient.so").lib_name + "-" + etc.meta.load("/lib/aptclient.so").version
+sys.metaver = etc.meta.load("/lib/metaxploit.so").lib_name + "-" + etc.meta.load("/lib/metaxploit.so").version
+sys.bios = "UEFI"
+sys.theme = "Arch Blue"
+sys.time = current_date
+sys.user = active_user
+sys.font = "Source Code Pro"
+sys.shell = "/bin/bash"
+sys.hduse = (etc.comp.File("/").size / 1048576) + " MB"
+sys.osver = "Rolling Release"
+sys.term = "/usr/bin/Terminal.exe"
+sys.lanip = get_router.local_ip
+sys.pubip = get_router.public_ip
+sys.bssid = get_router.bssid_name
+sys.essid = get_router.essid_name
+sys.cname = etc.comp.get_name
+sys.creator = etc.auth
+
+clr = {}
+clr.p = "<color=#1793d1>" 
+clr.t = "<color=#e6e6e6>" 
+clr.d = "<color=#5e6c79>"  
+clr.r = "</color>"
+
+L = []
+L.push("                   -`                    ")
+L.push("                  .o+`                   ")
+L.push("                 `ooo/                   ")
+L.push("                `+oooo:                  ")
+L.push("               `+oooooo:                 ")
+L.push("               -+oooooo+:                ")
+L.push("             `/:-:++oooo+:               ")
+L.push("            `/++++/+++++++:              ")
+L.push("           `/++++++++++++++:             ")
+L.push("          `/+++ooooooooooooo/`           ")
+L.push("         ./ooosssso++osssssso+`          ")
+L.push("        .oossssso-````/ossssss+`         ")
+L.push("       -osssssso.      :ssssssso.        ")
+L.push("      :osssssss/        osssso+++.       ")
+L.push("     /ossssssss/        +ssssooo/-       ")
+L.push("   `/ossssso+/:-        -:/+osssso+-     ")
+L.push("  `+sso+:-`                 `.-/+oso:    ")
+L.push(" `++:.                           `-/+/   ")
+L.push(" .`                                 ``   ")
+
+I = []
+dash = "-" * (sys.user + "@" + sys.cname).len
+I.push(clr.p + "<b>" + sys.user + "</b>" + clr.d + "@" + clr.p + "<b>" + sys.cname + "</b>" + clr.r)
+I.push(clr.d + "<b>" + dash + "</b>" + clr.r)
+I.push(clr.p + "<b>OS</b>" + clr.d + ": " + clr.t + sys.os + clr.r)
+I.push(clr.p + "<b>Kernel</b>" + clr.d + ": " + clr.t + sys.kernel + clr.r)
+I.push(clr.p + "<b>Time</b>" + clr.d + ": " + clr.t + sys.time + clr.r)
+I.push(clr.p + "<b>Apt</b>" + clr.d + ": " + clr.t + sys.aptver + clr.r)
+I.push(clr.p + "<b>MetaX</b>" + clr.d + ": " + clr.t + sys.metaver + clr.r)
+I.push(clr.p + "<b>Shell</b>" + clr.d + ": " + clr.t + sys.shell + clr.r)
+I.push(clr.p + "<b>BIOS</b>" + clr.d + ": " + clr.t + sys.bios + clr.r)
+I.push(clr.p + "<b>Theme</b>" + clr.d + ": " + clr.t + sys.theme + clr.r)
+I.push(clr.p + "<b>Font</b>" + clr.d + ": " + clr.t + sys.font + clr.r)
+I.push(clr.p + "<b>Version</b>" + clr.d + ": " + clr.t + sys.osver + clr.r)
+I.push(clr.p + "<b>Drive</b>" + clr.d + ": " + clr.t + sys.hduse + clr.r)
+I.push(clr.p + "<b>BSSID</b>" + clr.d + ": " + clr.t + sys.bssid + clr.r)
+I.push(clr.p + "<b>ESSID</b>" + clr.d + ": " + clr.t + sys.essid + clr.r)
+I.push(clr.p + "<b>PublicIP</b>" + clr.d + ": " + clr.t + sys.pubip + clr.r)
+I.push(clr.p + "<b>LanIP</b>" + clr.d + ": " + clr.t + sys.lanip + clr.r)
+I.push(clr.p + "<b>Creator</b>" + clr.d + ": " + clr.t + sys.creator + clr.r)
+
+ghfetch = function()
+    maxH = I.len
+    if L.len > maxH then maxH = L.len
+
+    print(" ")
+    for i in range(0, maxH - 1)
+        left = "                         "
+        right = ""
+        if i < L.len then left = L[i]
+        if i < I.len then right = I[i]
+        print(clr.p + left + clr.r + "   " + right)
+    end for
+
+    mk = function(h)
+        return "<mark=" + h + ">   </mark>"
+    end function
+    pal = mk("#bf616a") + mk("#a3be8c") + mk("#ebcb8b") + mk("#81a1c1") + mk("#b48ead") + mk("#88c0d0")
+    
+    print(" ")
+    print("                            " + pal)
+    print(" ")
+end function
+
+ghfetch()
