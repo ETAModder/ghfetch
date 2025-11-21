@@ -1,0 +1,99 @@
+// theme by 1ZW3
+
+etc = {}
+etc.ver = "v2.2-ubuntu-fix"
+etc.auth = "ETAGamer"
+etc.shell = get_shell
+etc.comp = etc.shell.host_computer
+etc.meta = include_lib("/lib/metaxploit.so")
+etc.apt = include_lib("/lib/aptclient.so")
+
+sys = {}
+sys.os = "Ubuntu"
+sys.kernel = etc.meta.load("/lib/kernel_module.so").lib_name + "-" + etc.meta.load("/lib/kernel_module.so").version
+sys.aptver = etc.meta.load("/lib/aptclient.so").lib_name + "-" + etc.meta.load("/lib/aptclient.so").version
+sys.metaver = etc.meta.load("/lib/metaxploit.so").lib_name + "-" + etc.meta.load("/lib/metaxploit.so").version
+sys.bios = "UEFI"
+sys.theme = "Yaru-Dark"
+sys.time = current_date
+sys.user = active_user
+sys.font = "Ubuntu Mono"
+sys.shell = "/bin/bash"
+sys.hduse = (etc.comp.File("/").size / 1048576) + " MB"
+sys.osver = "24.04 LTS"
+sys.term = "/usr/bin/Terminal.exe"
+sys.lanip = get_router.local_ip
+sys.pubip = get_router.public_ip
+sys.bssid = get_router.bssid_name
+sys.essid = get_router.essid_name
+sys.cname = etc.comp.get_name
+sys.creator = etc.auth
+
+clr = {}
+clr.o = "<color=#E95420>" 
+clr.w = "<color=#FFFFFF>" 
+clr.t = "<color=#e6e6e6>" 
+clr.d = "<color=#5e6c79>" 
+clr.r = "</color>"
+
+L = []
+L.push(clr.o + "            .-/+oossssoo+/-.               " + clr.r)
+L.push(clr.o + "        `:+ssssssssssssssssss+:`           " + clr.r)
+L.push(clr.o + "      -+ssssssssssssssssssyyssss+-         " + clr.r)
+L.push(clr.o + "    .ossssssssssssssssss" + clr.w + "dMMMN" + clr.o + "ysssso.       " + clr.r)
+L.push(clr.o + "   /sssssssssss" + clr.w + "hdmmNNmmyNMMMMh" + clr.o + "ssssss/      " + clr.r)
+L.push(clr.o + "  +sssssssss" + clr.w + "hmydMMMMMMMNddddy" + clr.o + "ssssssss+     " + clr.r)
+L.push(clr.o + " /ssssssss" + clr.w + "hNMMMyhhyyyyhmNMMMNh" + clr.o + "ssssssss/    " + clr.r)
+L.push(clr.o + ".ssssssss" + clr.w + "dMMMNh" + clr.o + "ssssssssss" + clr.w + "hNMMMd" + clr.o + "ssssssss.   " + clr.r)
+L.push(clr.o + "+ssss" + clr.w + "hhhyNMMNy" + clr.o + "ssssssssssss" + clr.w + "syNMMMys" + clr.o + "ssssss+   " + clr.r)
+L.push(clr.o + "oss" + clr.w + "yNMMMNyMMh" + clr.o + "ssssssssssssss" + clr.w + "hmmmh" + clr.o + "ssssssso   " + clr.r)
+L.push(clr.o + "oss" + clr.w + "yNMMMNyMMh" + clr.o + "ssssssssssssss" + clr.w + "hmmmh" + clr.o + "ssssssso   " + clr.r)
+L.push(clr.o + "+ssss" + clr.w + "hhhyNMMNy" + clr.o + "ssssssssssss" + clr.w + "syNMMMys" + clr.o + "ssssss+   " + clr.r)
+L.push(clr.o + ".ssssssss" + clr.w + "dMMMNh" + clr.o + "ssssssssss" + clr.w + "hNMMMd" + clr.o + "ssssssss.   " + clr.r)
+L.push(clr.o + " /ssssssss" + clr.w + "hNMMMyhhyyyyhdNMMMNh" + clr.o + "ssssssss/    " + clr.r)
+L.push(clr.o + "  +sssssssss" + clr.w + "dmydMMMMMMMMddddy" + clr.o + "ssssssss+     " + clr.r)
+L.push(clr.o + "   /sssssssssss" + clr.w + "hdmNNNNmyNMMMMh" + clr.o + "ssssss/      " + clr.r)
+L.push(clr.o + "    .ossssssssssssssssss" + clr.w + "dMMMN" + clr.o + "ysssso.       " + clr.r)
+L.push(clr.o + "      -+ssssssssssssssssss" + clr.w + "yyy" + clr.o + "ssss+-         " + clr.r)
+L.push(clr.o + "        `:+ssssssssssssssssss+:`           " + clr.r)
+L.push(clr.o + "            .-/+oossssoo+/-.               " + clr.r)
+
+I = []
+dash = "-" * (sys.user + "@" + sys.cname).len
+I.push(clr.o + "<b>" + sys.user + "</b>" + clr.d + "@" + clr.o + "<b>" + sys.cname + "</b>" + clr.r)
+I.push(clr.d + "<b>" + dash + "</b>" + clr.r)
+I.push(clr.o + "<b>OS</b>" + clr.d + ": " + clr.t + sys.os + clr.r)
+I.push(clr.o + "<b>Kernel</b>" + clr.d + ": " + clr.t + sys.kernel + clr.r)
+I.push(clr.o + "<b>Time</b>" + clr.d + ": " + clr.t + sys.time + clr.r)
+I.push(clr.o + "<b>Apt</b>" + clr.d + ": " + clr.t + sys.aptver + clr.r)
+I.push(clr.o + "<b>MetaX</b>" + clr.d + ": " + clr.t + sys.metaver + clr.r)
+I.push(clr.o + "<b>Shell</b>" + clr.d + ": " + clr.t + sys.shell + clr.r)
+I.push(clr.o + "<b>Theme</b>" + clr.d + ": " + clr.t + sys.theme + clr.r)
+I.push(clr.o + "<b>Version</b>" + clr.d + ": " + clr.t + sys.osver + clr.r)
+I.push(clr.o + "<b>Drive</b>" + clr.d + ": " + clr.t + sys.hduse + clr.r)
+I.push(clr.o + "<b>BSSID</b>" + clr.d + ": " + clr.t + sys.bssid + clr.r)
+I.push(clr.o + "<b>PublicIP</b>" + clr.d + ": " + clr.t + sys.pubip + clr.r)
+I.push(clr.o + "<b>Creator</b>" + clr.d + ": " + clr.t + sys.creator + clr.r)
+
+ghfetch = function()
+    maxH = I.len
+    if L.len > maxH then maxH = L.len
+    print(" ")
+    for i in range(0, maxH - 1)
+        left = "                                           "
+        right = ""
+        if i < L.len then left = L[i]
+        if i < I.len then right = I[i]
+        print(left + "   " + right)
+    end for
+
+    mk = function(h)
+        return "<mark=" + h + ">   </mark>"
+    end function
+    pal = mk("#E95420") + mk("#772953") + mk("#5E2750") + mk("#AEA79F") + mk("#F7F7F7")
+    print(" ")
+    print("                                            " + pal)
+    print(" ")
+end function
+
+ghfetch()
